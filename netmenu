@@ -6,4 +6,6 @@ connect() {
 
 CONNECT=$(connect)
 
-echo $CONNECT | netctldcli
+if [ -z "$CONNECT" ]
+    echo $CONNECT | netctldcli
+fi
