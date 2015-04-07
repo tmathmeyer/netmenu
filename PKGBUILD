@@ -1,6 +1,6 @@
 # Maintainer: Ted Meyer <tmathmeyer@gmail.com>
 
-_pkgname=netctl-dmenu
+_pkgname=netmenu
 pkgname=${_pkgname}
 pkgver=1
 pkgrel=1
