@@ -20,22 +20,15 @@ int main(void)
         exit(1);
     }
 
-    printf("Trying to connect...\n");
 
     remote.sun_family = AF_UNIX;
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
     if (connect(s, (struct sockaddr *)&remote, len) == -1) {
-        perror("connect");
         exit(1);
     }
 
-    printf("Connected.\n");
-
-    fgets(str, 100, stdin);
-
-    if (send(s, str, strlen(str), 0) == -1) {
-        perror("send");
+    if (send(s, "list", 5, 0) == -1) {
         exit(1);
     }
 
