@@ -111,8 +111,8 @@ char *generate_sysctl_stop() {
 char *get_list_of_interfaces() {
     DIR *profile_dir = opendir("/etc/netctl/");
     struct dirent *entries;
-    char *buffer;
-    int pos;
+    char *buffer = NULL;
+    int pos = 0;
     int size = BUFFER_SIZE;
     
     if (!profile_dir) {
@@ -120,12 +120,13 @@ char *get_list_of_interfaces() {
         return NULL;
     }
 
-    buffer = malloc(size);
+    buffer = calloc(1, size);
     if (!buffer) {
         fprintf(stderr, "cannot allocate %i bytes", BUFFER_SIZE);
         return NULL;
     }
-
+    
+    rewinddir(profile_dir);
     while (entries = readdir(profile_dir)) {
         switch(entries->d_type) { // so what if it's not POSIX?
             case DT_REG:
@@ -137,6 +138,7 @@ char *get_list_of_interfaces() {
                     if (n) {
                         buffer = n;
                     } else {
+                        perror("cannot allocate");
                         free(buffer);
                         return NULL;
                     }
@@ -247,12 +249,11 @@ int echo_socket()
             char *example = get_list_of_interfaces();
             send(s2, example, strlen(example), 0);
             free(example);
+            send(s2, "\0", 1, 0);
         } else {
-
             sysctl_stop = generate_sysctl_stop();
             sysctl_start = generate_sysctl_start(str);
             if (sysctl_stop && sysctl_start) {
-                puts(sysctl_start);
                 system(sysctl_stop);
                 system(sysctl_start);
 
@@ -268,6 +269,7 @@ int echo_socket()
 
 
         // flush the remaining data and close the socket
+        send(s2, "\0", 1, 0);
         while(recv(s2, &trash, 1, 0));
         close(s2);
     }

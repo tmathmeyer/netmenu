@@ -36,6 +36,7 @@ int main(void)
         printf(str);
     }
 
+
     close(s);
 
     return 0;

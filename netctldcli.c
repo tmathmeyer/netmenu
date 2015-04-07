@@ -33,12 +33,13 @@ int main(void)
     printf("Connected.\n");
 
     fgets(str, 100, stdin);
-
+    puts(str);
     if (send(s, str, strlen(str), 0) == -1) {
         perror("send");
         exit(1);
     }
 
+    recv(s, str, 100, 0);
 
     close(s);
 
