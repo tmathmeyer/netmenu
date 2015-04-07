@@ -1,4 +1,4 @@
-./netctldlist | tee .wifi-info 2>&1 > /dev/null
+netctldlist | tee .wifi-info 2>&1 > /dev/null
 
 connect() {
     exec dmenu -nb "#2d2d2d" -bc "#2d2d2d" -l 10 -w 320 -x 800 -y 0 -p "" -sb "#4d4d4d" -nf "#aaaaaa" -sf "#bbbbbb" < .wifi-info
@@ -6,4 +6,4 @@ connect() {
 
 CONNECT=$(connect)
 
-echo $CONNECT | ./netctldcli
+echo $CONNECT | netctldcli
