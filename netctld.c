@@ -24,6 +24,7 @@ void chown_socket(void);
 void forkd() {
     pid_t pid = fork();
     if (pid < 0) {
+        perror("can't fork");
         exit(EXIT_FAILURE);
     }
     if (pid > 0) {
@@ -32,11 +33,12 @@ void forkd() {
     umask(0);
     pid_t sid = setsid();
     if (sid < 0) {
+        perror("can't set sid");
         exit(EXIT_FAILURE);
     }
 
     if ((chdir("/")) < 0) {
-        /* Log the failure */
+        perror("cant chdir to /");
         exit(EXIT_FAILURE);
     }
     close(STDIN_FILENO);
