@@ -244,9 +244,8 @@ int echo_socket()
             str[n-1] = '\0'; 
         }
         if (strncmp(str, "list", 4) == 0) {
-            char *example = "WPI-Wireless\ntin2";
+            char *example = get_list_of_interfaces();
             send(s2, example, strlen(example), 0);
-            puts(get_list_of_interfaces());
         } else {
 
             sysctl_stop = generate_sysctl_stop();
