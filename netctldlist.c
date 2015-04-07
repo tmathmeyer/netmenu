@@ -20,7 +20,6 @@ int main(void)
         exit(1);
     }
 
-
     remote.sun_family = AF_UNIX;
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
@@ -30,6 +29,11 @@ int main(void)
 
     if (send(s, "list", 5, 0) == -1) {
         exit(1);
+    }
+
+    if ((t=recv(s, str, 100, 0)) > 0) {
+        str[t] = '\0';
+        printf(str);
     }
 
     close(s);

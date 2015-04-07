@@ -39,6 +39,15 @@ int main(void)
         exit(1);
     }
 
+    if ((t=recv(s, str, 100, 0)) > 0) {
+        str[t] = '\0';
+        puts(str);
+    } else {
+        if (t < 0) perror("recv");
+        else printf("Server closed connection\n");
+        exit(1);
+    }
+
     close(s);
 
     return 0;
