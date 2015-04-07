@@ -246,6 +246,7 @@ int echo_socket()
         if (strncmp(str, "list", 4) == 0) {
             char *example = get_list_of_interfaces();
             send(s2, example, strlen(example), 0);
+            free(example);
         } else {
 
             sysctl_stop = generate_sysctl_stop();
