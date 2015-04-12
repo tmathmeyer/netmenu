@@ -1,9 +1,9 @@
 #!/bin/bash
 
-netctldlist | tee .wifi-info 2>&1 > /dev/null
+./netctldlist | tee .wifi-info 2>&1 > /dev/null
 
 CONNECT=$(exec dmenu $@ < .wifi-info)
 
 if [ -n "$CONNECT" ]; then
-    echo $CONNECT | netctldcli
+    echo $CONNECT | ./netctldcli
 fi

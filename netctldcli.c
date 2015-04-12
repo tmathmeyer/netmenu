@@ -34,6 +34,7 @@ int main(void)
 
     fgets(str, 100, stdin);
     puts(str);
+    send(s, "s ", 2, 0); 
     if (send(s, str, strlen(str), 0) == -1) {
         perror("send");
         exit(1);
