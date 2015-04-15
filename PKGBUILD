@@ -27,8 +27,8 @@ build() {
 }
 
 package() {
-    installDir="/usr/bin"
-    systemDir="/etc/systemd/system"
+    installDir="$pkgdir/usr/bin"
+    systemDir="$pkgdir/etc/systemd/system"
     install -dm755 "$systemDir"
     install -dm755 "$installDir"
     install -m755 "$srcdir/$_pkgname/netmenu.service" "$systemDir/netmenu.service"
