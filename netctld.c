@@ -50,8 +50,23 @@ void forkd() {
 
 
 
-int main() {
-    forkd();
+int main(int argc, char **argv) {
+    int fork = 1;
+    int verbose = 0;
+
+    while(argc--) {
+        if (!strncmp("--no-fork", argv[argc], 9)) {
+            fork = 0;
+        }
+    }
+
+    if (fork) {
+        forkd();
+    } else {
+        echo_socket();
+    }
+
+    puts("finished");
     return 0;
 }
 
@@ -220,7 +235,7 @@ void do_disconnect(int socket, char *interface) {
     char *start_cmd = generate_sysctl_start(interface);
 
     if (!stop_cmd || !start_cmd) {
-        send(socket, "error", 6, 0);
+        send(socket, "error - could not allocate commands", 6, 0);
         if (stop_cmd) {
             free(stop_cmd);
         }
@@ -237,10 +252,10 @@ void do_disconnect(int socket, char *interface) {
             if (start_status == 0) {
                 send(socket, "success", 8, 0);
             } else {
-                send(socket, "error", 6, 0);
+                send(socket, "error - connection failed", 6, 0);
             }
         } else {
-            send(socket, "error", 6, 0);
+            send(socket, "error - disconnection failed", 6, 0);
         }
         free(stop_cmd);
         free(start_cmd);

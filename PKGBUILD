@@ -10,7 +10,7 @@ url="https://github.com/tmathmeyer/${_pkgname}"
 license=('GPL')
 depends=(dmenu)
 makedepends=('git')
-optdepends=()
+optdepends=(systemd)
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 source=("git://github.com/tmathmeyer/${_pkgname}.git")
@@ -27,8 +27,11 @@ build() {
 }
 
 package() {
-    installDir="$pkgdir/usr/bin"
+    installDir="/usr/bin"
+    systemDir="/etc/systemd/system"
+    install -dm755 "$systemDir"
     install -dm755 "$installDir"
+    install -m755 "$srcdir/$_pkgname/netmenu.service" "$systemDir/netmen.service"
     install -m755 "$srcdir/$_pkgname/netmenu" "$installDir/netmenu"
     install -m755 "$srcdir/$_pkgname/netctld" "$installDir/netctld"
     install -m755 "$srcdir/$_pkgname/netctldcli" "$installDir/netctldcli"

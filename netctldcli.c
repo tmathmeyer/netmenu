@@ -40,7 +40,9 @@ int main(void)
         exit(1);
     }
 
+    memset(str, 0, 100);
     recv(s, str, 100, 0);
+    puts(str);
 
     close(s);
 

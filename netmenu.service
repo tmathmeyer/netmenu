@@ -1,0 +1,8 @@
+[Unit]
+Description=A daemon for managing the wifi
+ 
+[Service]
+ExecStart=/usr/bin/netctld --no-fork
+
+[Install]
+WantedBy=multi-user.target
