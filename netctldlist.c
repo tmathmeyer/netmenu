@@ -9,11 +9,13 @@
 
 #include "netctld.h"
 
+#define BUFFER 2048
+
 int main(void)
 {
     int s, t, len;
     struct sockaddr_un remote;
-    char str[100];
+    char str[BUFFER];
 
     if ((s = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
         perror("socket");
@@ -31,7 +33,7 @@ int main(void)
         exit(1);
     }
 
-    if ((t=recv(s, str, 100, 0)) > 0) {
+    if ((t=recv(s, str, BUFFER, 0)) > 0) {
         str[t] = '\0';
         printf(str);
     }
