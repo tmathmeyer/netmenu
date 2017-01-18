@@ -20,8 +20,6 @@ int main(void)
         exit(1);
     }
 
-    printf("Trying to connect...\n");
-
     remote.sun_family = AF_UNIX;
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
@@ -30,10 +28,17 @@ int main(void)
         exit(1);
     }
 
-    printf("Connected.\n");
-
+    printf("Connected ...\n");
     fgets(str, 100, stdin);
-    puts(str);
+    if (!strncmp(str, "+ new interface", 15)) {
+        char *argv[] = { "urxvt", "-e", "sudo", "wifi-menu", 0 };
+        int status = execvp(argv[0], argv);
+        printf("%i\n", status);
+        if (status == -1) {
+            printf("%s\n", strerror(errno));
+        }
+        return status;
+    }
     send(s, "s ", 2, 0); 
     if (send(s, str, strlen(str), 0) == -1) {
         perror("send");

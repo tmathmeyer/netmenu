@@ -223,6 +223,8 @@ int write_chars_to_buffer(char *buffer, const char *data) {
 void list_to_socket(int socket) {
 
     char *interfaces = get_list_of_interfaces();
+    size_t i = strlen(interfaces);
+    send(socket, (char *)&i, sizeof(size_t), 0);
     send(socket, interfaces, strlen(interfaces), 0);
     send(socket, "\0", 1, 0);
     free(interfaces);

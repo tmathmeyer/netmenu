@@ -1,6 +1,6 @@
 #!/bin/bash
 
-netctldlist | tee .wifi-info 2>&1 > /dev/null
+netctldlist > .wifi-info 2>/dev/null
 
 CONNECT=$(exec dmenu $@ < .wifi-info)
 
