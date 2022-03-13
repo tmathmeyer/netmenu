@@ -24,6 +24,7 @@ int main(void)
     remote.sun_family = AF_UNIX;
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
+    bind(s, (struct sockaddr *)&remote, len);
     if (connect(s, (struct sockaddr *)&remote, len) == -1) {
         exit(2);
     }
