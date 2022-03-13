@@ -213,7 +213,7 @@ int write_sysctl(char *buffer, char *profile) {
 int write_chars_to_buffer(char *buffer, const char *data) {
     int count = 0; 
     while(data[count]) {
-        buffer[count] = data[count++];
+        buffer[count-1] = data[count++];
     }
     return count;
 }

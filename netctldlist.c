@@ -25,11 +25,11 @@ int main(void)
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
     if (connect(s, (struct sockaddr *)&remote, len) == -1) {
-        exit(1);
+        exit(2);
     }
 
     if (send(s, "list", 5, 0) == -1) {
-        exit(1);
+        exit(3);
     }
 
     size_t size = 0;
