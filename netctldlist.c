@@ -24,13 +24,12 @@ int main(void)
     remote.sun_family = AF_UNIX;
     strcpy(remote.sun_path, SOCK_PATH);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
-    bind(s, (struct sockaddr *)&remote, len);
     if (connect(s, (struct sockaddr *)&remote, len) == -1) {
-        exit(2);
+        exit(1);
     }
 
     if (send(s, "list", 5, 0) == -1) {
-        exit(3);
+        exit(1);
     }
 
     size_t size = 0;
@@ -41,7 +40,7 @@ int main(void)
             printf(str);
         }
         free(str);
-        printf("\n+ new interface");
+        printf("+ new interface");
     }
 
 
