@@ -6,14 +6,14 @@ pkgver=2
 pkgrel=2
 pkgdesc='A wifi controller for dmenu'
 arch=('x86_64')
-url="https://github.com/UnlimitedWand/${_pkgname}"
+url="https://github.com/tmathmeyer/${_pkgname}"
 license=('GPL')
 depends=(dmenu)
 makedepends=('git')
 optdepends=(systemd)
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
-source=("git://github.com/UnlimitedWand/${_pkgname}.git")
+source=("git://github.com/tmathmeyer/${_pkgname}.git")
 md5sums=('SKIP')
 
 pkgver() {
