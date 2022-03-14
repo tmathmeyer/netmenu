@@ -2,7 +2,7 @@
 
 netctldlist > .wifi-info 2>/dev/null
 
-CONNECT=$(exec dmenu $@ < .wifi-info)
+CONNECT=$(exec dmenu "$@" < .wifi-info)
 
 if [ -n "$CONNECT" ]; then
     echo $CONNECT | netctldcli
